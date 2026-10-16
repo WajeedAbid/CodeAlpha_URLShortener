@@ -1,10 +1,9 @@
 from pathlib import Path
-
 from flask import Flask
 
-from repository import LinkRepository
-from routes import create_routes
-from service import LinkService
+from backend.repository import LinkRepository
+from backend.routes import create_routes
+from backend.service import LinkService
 
 
 def create_app():

@@ -2,7 +2,7 @@ import secrets
 import string
 from urllib.parse import urlsplit
 
-from models import ShortLink
+from backend.models import ShortLink
 
 
 class LinkService:

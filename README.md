@@ -21,7 +21,7 @@ The application uses three logical layers:
 | Data | repository.py | SQLite queries and persistence |
 
 `app.py` connects the layers and starts the application.
-`models.py` defines the ShortLink data model.
+`backend/models.py` defines the ShortLink data model.
 
 ## Run locally — Windows PowerShell
 

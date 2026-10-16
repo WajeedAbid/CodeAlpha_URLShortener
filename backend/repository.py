@@ -1,7 +1,7 @@
 import sqlite3
 from contextlib import closing
 
-from models import ShortLink
+from backend.models import ShortLink
 
 
 class LinkRepository:
