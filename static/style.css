@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px 18px;
+    font-family: system-ui, sans-serif;
+    color: #edf2ff;
+    background:
+        radial-gradient(ellipse at top left, #253466, transparent 60%),
+        #0b1020;
+}
+
+.card {
+    width: 100%;
+    max-width: 640px;
+    padding: 48px;
+    background: #131c30;
+    border: 1px solid #2a3652;
+    border-radius: 24px;
+    box-shadow: 0 24px 80px #0005;
+}
+
+.badge {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #a7b8dd;
+}
+
+h1 {
+    margin: 28px 0 18px;
+    font-size: clamp(36px, 7vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    color: #91b5ff;
+}
+
+.intro {
+    color: #b4bfd6;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    min-width: 0;
+    padding: 15px;
+    color: #edf2ff;
+    background: #0b1222;
+    border: 1px solid #42516f;
+    border-radius: 10px;
+    font: inherit;
+}
+
+input:focus {
+    outline: 2px solid #91b5ff;
+    outline-offset: 2px;
+}
+
+button {
+    padding: 15px 20px;
+    background: #a4c2ff;
+    color: #0c1730;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #c0d4ff;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#submit-button {
+    width: 100%;
+    margin-top: 14px;
+}
+
+#message {
+    min-height: 24px;
+    font-size: 14px;
+}
+
+.error {
+    color: #ffadb5;
+}
+
+.success {
+    color: #8ee0b4;
+}
+
+#result {
+    border-top: 1px solid #2a3652;
+    padding-top: 24px;
+}
+
+.result-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+a {
+    color: #a4c2ff;
+    font-size: 14px;
+}
+
+footer {
+    margin-top: 36px;
+    color: #9baac7;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 28px 22px;
+    }
+
+    .result-row {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shortly | URL Shortener</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="card">
+    <span class="badge">CODEALPHA · BACKEND PROJECT</span>
+
+    <h1>Long link.<br><span>Short answer.</span></h1>
+
+    <p class="intro">
+        Turn a long web address into a short, shareable link.
+    </p>
+
+    {% if error %}
+    <p class="error" role="alert">{{ error }}</p>
+    {% endif %}
+
+    <form id="shorten-form">
+        <label for="url">Your original URL</label>
+
+        <input
+            id="url"
+            name="url"
+            type="url"
+            placeholder="https://example.com/a-long-address"
+            maxlength="4096"
+            required
+        >
+
+        <button id="submit-button" type="submit">Shorten link</button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <section id="result" hidden>
+        <label for="short-url">Your short link</label>
+
+        <div class="result-row">
+            <input id="short-url" readonly>
+            <button id="copy-button" type="button">Copy</button>
+        </div>
+
+        <a id="open-link" target="_blank" rel="noopener noreferrer">
+            Open your link ↗
+        </a>
+    </section>
+
+    <footer>Python · Flask · SQLite</footer>
+</main>
+
+<script>
+    const form = document.getElementById("shorten-form");
+    const message = document.getElementById("message");
+    const result = document.getElementById("result");
+    const submitButton = document.getElementById("submit-button");
+    const shortUrlInput = document.getElementById("short-url");
+    const openLink = document.getElementById("open-link");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        result.hidden = true;
+        message.textContent = "";
+        message.className = "";
+        submitButton.disabled = true;
+        submitButton.textContent = "Creating...";
+
+        try {
+            const response = await fetch("/api/shorten", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    url: document.getElementById("url").value
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Could not create the link.");
+            }
+
+            shortUrlInput.value = data.short_url;
+            openLink.href = data.short_url;
+            result.hidden = false;
+            message.textContent = "Your link is ready!";
+            message.className = "success";
+        } catch (error) {
+            message.textContent = error.message || "Something went wrong.";
+            message.className = "error";
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Shorten link";
+        }
+    });
+
+    document.getElementById("copy-button").addEventListener("click", async () => {
+        try {
+            await navigator.clipboard.writeText(shortUrlInput.value);
+            message.textContent = "Copied to clipboard!";
+            message.className = "success";
+        } catch {
+            shortUrlInput.select();
+            message.textContent = "Press Ctrl+C to copy the selected link.";
+            message.className = "";
+        }
+    });
+</script>
+</body>
+</html>
